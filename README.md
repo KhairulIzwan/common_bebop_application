@@ -16,21 +16,29 @@
 		> alias eb='gedit ~/.bashrc'
 		>
 		> alias sb='source ~/.bashrc'
+		> 
 		> alias gs='git status'
+		> 
 		> alias gp='git pull'
+		> 
 		> alias cw='cd ~/catkin_ws'
+		> 
 		> alias cs='cd ~/catkin_ws/src'
+		> 
 		> alias cm='cd ~/catkin_ws && rosdep install -y --from-paths src --ignore-src --rosdistro kinetic && catkin_make && rospack profile'
-
+		> 
 		> source /opt/ros/kinetic/setup.bash
+		> 
 		> source ~/catkin_ws/devel/setup.bash
-
+		> 
 		> export ROS_MASTER_URI=http://192.168.42.45:11311
+		> 
 		> export ROS_HOSTNAME=192.168.42.45
-
+		> 
 		> export EDITOR='gedit -w'
-
+		> 
 		> alias gumn='gp && git add . && git commit -m "latest" && git push origin main'
+		> 
 		>
 
 ## Steps:

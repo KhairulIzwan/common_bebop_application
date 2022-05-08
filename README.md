@@ -14,6 +14,7 @@
 	2. **Add this line to end of file:
 		>
 		> alias eb='gedit ~/.bashrc'
+		>
 		> alias sb='source ~/.bashrc'
 		> alias gs='git status'
 		> alias gp='git pull'

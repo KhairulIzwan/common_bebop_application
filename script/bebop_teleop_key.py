@@ -30,11 +30,11 @@ if os.name == 'nt':
 else:
 	import tty, termios
 
-MAX_LIN_VEL = 2.00
-MAX_ANG_VEL = 2.00
+MAX_LIN_VEL = 1.00
+MAX_ANG_VEL = 1.00
 
-LIN_VEL_STEP_SIZE = 0.2
-ANG_VEL_STEP_SIZE = 0.2
+LIN_VEL_STEP_SIZE = 0.01
+ANG_VEL_STEP_SIZE = 0.01
 
 msg = """
 Control Your Bebop Drone!
@@ -129,42 +129,42 @@ if __name__=="__main__":
 		print(msg)
 		while True:
 			key = getKey()
-			# forward
-			if key == 'w' :
+			# translate left
+			if key == 'a' :
 				target_linear_y_vel = checkLinearLimitVelocity(target_linear_y_vel + LIN_VEL_STEP_SIZE)
 				status = status + 1
 				print(vels(target_linear_x_vel, target_linear_y_vel, target_linear_z_vel,target_angular_vel))
-			# backward
-			elif key == 's' :
+			# translate right
+			elif key == 'd' :
 				target_linear_y_vel = checkLinearLimitVelocity(target_linear_y_vel - LIN_VEL_STEP_SIZE)
 				status = status + 1
 				print(vels(target_linear_x_vel, target_linear_y_vel, target_linear_z_vel,target_angular_vel))
-			# left
-			elif key == 'a' :
+			# translate backward
+			elif key == 's' :
 				target_linear_x_vel = checkLinearLimitVelocity(target_linear_x_vel - LIN_VEL_STEP_SIZE)
 				status = status + 1
 				print(vels(target_linear_x_vel, target_linear_y_vel, target_linear_z_vel,target_angular_vel))
-			# right
-			elif key == 'd' :
+			# translate forward
+			elif key == 'w' :
 				target_linear_x_vel = checkLinearLimitVelocity(target_linear_x_vel + LIN_VEL_STEP_SIZE)
 				status = status + 1
 				print(vels(target_linear_x_vel, target_linear_y_vel, target_linear_z_vel,target_angular_vel))
-			# up
+			# ascend
 			elif key == 'i' :
 				target_linear_z_vel = checkLinearLimitVelocity(target_linear_z_vel + LIN_VEL_STEP_SIZE)
 				status = status + 1
 				print(vels(target_linear_x_vel, target_linear_y_vel, target_linear_z_vel,target_angular_vel))
-			# down
+			# decend
 			elif key == 'k' :
 				target_linear_z_vel = checkLinearLimitVelocity(target_linear_z_vel - LIN_VEL_STEP_SIZE)
 				status = status + 1
 				print(vels(target_linear_x_vel, target_linear_y_vel, target_linear_z_vel,target_angular_vel))
-			# rotate left
+			# rotate clockwise
 			elif key == 'j' :
 				target_angular_vel = checkAngularLimitVelocity(target_angular_vel - ANG_VEL_STEP_SIZE)
 				status = status + 1
 				print(vels(target_linear_x_vel, target_linear_y_vel, target_linear_z_vel,target_angular_vel))
-			# rotate right
+			# rotate counter clockwise
 			elif key == 'l' :
 				target_angular_vel = checkAngularLimitVelocity(target_angular_vel + ANG_VEL_STEP_SIZE)
 				status = status + 1

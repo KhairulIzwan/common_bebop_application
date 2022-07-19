@@ -30,11 +30,13 @@ if os.name == 'nt':
 else:
 	import tty, termios
 
-MAX_LIN_VEL = 1.00
-MAX_ANG_VEL = 1.00
+#Acceptable range for all fields are [-1..1]
 
-LIN_VEL_STEP_SIZE = 0.01
-ANG_VEL_STEP_SIZE = 0.01
+MAX_LIN_VEL = 1
+MAX_ANG_VEL = 1
+
+LIN_VEL_STEP_SIZE = 0.05
+ANG_VEL_STEP_SIZE = 0.05
 
 msg = """
 Control Your Bebop Drone!
@@ -112,6 +114,13 @@ if __name__=="__main__":
 	pub = rospy.Publisher('/bebop/cmd_vel', Twist, queue_size=10)
 	pubTakeoff = rospy.Publisher('/bebop/takeoff', Empty, queue_size=10)
 	pubLand = rospy.Publisher('/bebop/land', Empty, queue_size=10)
+	
+	bebopCamdown_topic = "/bebop/camera_control"
+	bebopCamdown_pub = rospy.Publisher(
+						bebopCamdown_topic, 
+						Twist, 
+						queue_size=1
+						)
 
 	status = 0
 	target_linear_x_vel   = 0.0
@@ -160,12 +169,12 @@ if __name__=="__main__":
 				status = status + 1
 				print(vels(target_linear_x_vel, target_linear_y_vel, target_linear_z_vel,target_angular_vel))
 			# rotate clockwise
-			elif key == 'j' :
+			elif key == 'l' :
 				target_angular_vel = checkAngularLimitVelocity(target_angular_vel - ANG_VEL_STEP_SIZE)
 				status = status + 1
 				print(vels(target_linear_x_vel, target_linear_y_vel, target_linear_z_vel,target_angular_vel))
 			# rotate counter clockwise
-			elif key == 'l' :
+			elif key == 'j' :
 				target_angular_vel = checkAngularLimitVelocity(target_angular_vel + ANG_VEL_STEP_SIZE)
 				status = status + 1
 				print(vels(target_linear_x_vel, target_linear_y_vel, target_linear_z_vel,target_angular_vel))
@@ -179,6 +188,20 @@ if __name__=="__main__":
 			elif key == 'b' :
 				land = Empty()
 				pubLand.publish(land)
+				status = status + 1
+				print(vels(target_linear_x_vel, target_linear_y_vel, target_linear_z_vel,target_angular_vel))
+			# land
+			elif key == 'f' :
+				cam = Twist()
+				cam.angular.y = 90.0
+				bebopCamdown_pub.publish(cam)
+				status = status + 1
+				print(vels(target_linear_x_vel, target_linear_y_vel, target_linear_z_vel,target_angular_vel))
+			# land
+			elif key == 'g' :
+				cam = Twist()
+				cam.angular.y = -90.0
+				bebopCamdown_pub.publish(cam)
 				status = status + 1
 				print(vels(target_linear_x_vel, target_linear_y_vel, target_linear_z_vel,target_angular_vel))
 				
